@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    Vector2 frontVector;
+
+    [SerializeField]
     BulletPool bulletPool;
 
     [SerializeField]
@@ -16,12 +19,22 @@ public class Player : MonoBehaviour
     [SerializeField]
     float rotationSpeed;
 
+    float currentRotationValue;
+
     public bool ShouldThrust;
 
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        transform.Rotate(0, 0, currentRotationValue * rotationSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -37,12 +50,13 @@ public class Player : MonoBehaviour
 
     public void Thrust()
     {
-        body.AddForce(transform.forward * thrustPower * Time.fixedDeltaTime);
+        body.AddForce((transform.rotation * frontVector) * thrustPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
 
     public void Rotate(float val)
     {
-        transform.Rotate(0, 0, val * rotationSpeed * Time.deltaTime);
+        currentRotationValue = val;
+
     }
 
     public void Fire()
@@ -52,6 +66,8 @@ public class Player : MonoBehaviour
         if (newBullet != null)
         {
             newBullet.transform.position = transform.position;
+            newBullet.ForwardVector = transform.rotation * frontVector;
+            newBullet.gameObject.SetActive(true);
         }
     }
 }

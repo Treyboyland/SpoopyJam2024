@@ -14,24 +14,21 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HandleMovement(InputAction.CallbackContext context)
     {
+        Vector2 movementVector = context.ReadValue<Vector2>();
+        //Debug.LogWarning($"{movementVector.y}");
 
-    }
-
-    public void HandleRotation(InputAction.CallbackContext context)
-    {
-
+        player.ShouldThrust = movementVector.y > 0;
+        player.Rotate(-movementVector.x);
     }
 
     public void HandleFire(InputAction.CallbackContext context)
     {
-
-    }
-
-    public void HandleThrust(InputAction.CallbackContext context)
-    {
-
+        bool shouldFire = context.ReadValueAsButton();
+        if (shouldFire)
+        {
+            player.Fire();
+        }
     }
 }

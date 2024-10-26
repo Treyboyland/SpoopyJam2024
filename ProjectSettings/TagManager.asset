@@ -38,6 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3182121287
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Energy
+    uniqueID: 2665279967
+    locked: 0
+  - name: Player
+    uniqueID: 1662850147
+    locked: 0
+  - name: AEON
+    uniqueID: 45791693
     locked: 0

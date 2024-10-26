@@ -9,8 +9,8 @@ public class AsteroidPool : ObjectPool<Asteroid>
 
     protected override Asteroid CreateObject()
     {
-
-        var newObject = Instantiate(potentialPrefabs.Random(), transform);
+        //var newObject = Instantiate(potentialPrefabs.Random(), transform);
+        var newObject = Instantiate(objectToGenerate, transform);
         newObject.gameObject.SetActive(false);
         newObject.Pool = this;
         pool.Add(newObject);

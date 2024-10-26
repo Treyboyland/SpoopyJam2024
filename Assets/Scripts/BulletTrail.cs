@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class BulletTrail : MonoBehaviour
 {
+    [SerializeField]
+    ParticleSystem particle;
+
     public Bullet BulletToTrack;
 
     // Start is called before the first frame update
@@ -17,7 +21,29 @@ public class BulletTrail : MonoBehaviour
     {
         if (BulletToTrack != null)
         {
-            transform.position = BulletToTrack.transform.position;
+            if (BulletToTrack.gameObject.activeInHierarchy)
+            {
+                transform.position = BulletToTrack.transform.position;
+
+                if (!particle.isPlaying)
+                {
+                    particle.Play();
+                }
+            }
+            else
+            {
+                BulletToTrack = null;
+            }
+
+        }
+        else
+        {
+            particle.Stop();
+        }
+
+        if (particle.particleCount == 0 && !particle.isPlaying)
+        {
+            gameObject.SetActive(false);
         }
     }
 
