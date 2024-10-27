@@ -90,4 +90,9 @@ public class Player : MonoBehaviour
             Level = 0;
         }
     }
+
+    public void ResetEnergy()
+    {
+        Energy = 0;
+    }
 }
