@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Asteroids
   - 
   - 
   - 
@@ -43,6 +43,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Asteroids
+    uniqueID: 4210846713
+    locked: 0
+  - name: Bullets
+    uniqueID: 934868157
     locked: 0
   - name: Energy
     uniqueID: 2665279967

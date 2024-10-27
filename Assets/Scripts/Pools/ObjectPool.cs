@@ -53,4 +53,27 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
             item.gameObject.SetActive(false);
         }
     }
+
+    public void SpawnAtPosition(Vector3 position)
+    {
+        var obj = GetObject();
+        if (obj != null)
+        {
+            obj.transform.position = position;
+            obj.gameObject.SetActive(true);
+        }
+    }
+
+    public bool AreAnyActive()
+    {
+        foreach (var item in pool)
+        {
+            if (item.gameObject.activeInHierarchy)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -7,6 +7,12 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     [SerializeField]
+    GameEventVector3SO onAsteroidDestroyed;
+
+    [SerializeField]
+    GameEventVector3SO onSpawnEnergy;
+
+    [SerializeField]
     Vector2 randomSpeed;
 
     [SerializeField]
@@ -18,7 +24,13 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     List<TierAndSize> tierAndSizes;
 
+    [SerializeField]
     int currentTier;
+
+    [SerializeField]
+    float energyDropChance;
+
+    static int currentMisses;
 
     public int CurrentTier
     {
@@ -62,7 +74,7 @@ public class Asteroid : MonoBehaviour
     void SetSize()
     {
         //This is bad...but who cares?
-        Vector3.zero.VectorOfSize(tierAndSizes.Where(x => x.Tier == currentTier).FirstOrDefault().Size);
+        transform.localScale = Vector3.zero.VectorOfSize(tierAndSizes.Where(x => x.Tier == currentTier).FirstOrDefault().Size);
     }
 
     /// <summary>
@@ -83,6 +95,7 @@ public class Asteroid : MonoBehaviour
         {
             var newAsteroid = Pool.GetObject();
             newAsteroid.transform.position = transform.position;
+            newAsteroid.DirectionQuaternion = Quaternion.Euler(0, 0, new Vector2(0, 360).Random());
             newAsteroid.CurrentTier = CurrentTier - 1;
             newAsteroid.gameObject.SetActive(true);
         }
@@ -90,11 +103,38 @@ public class Asteroid : MonoBehaviour
 
     public void DestroyAsteroid()
     {
-        if (CurrentTier != 0)
+        if (CurrentTier != 1)
         {
             CreateAdditional(objectsToCreateOnDestroy.Random());
         }
+        else
+        {
+            bool spawnEnergy = new Vector2(0, 1).Random() <= energyDropChance;
+            currentMisses += spawnEnergy ? 0 : 1;
 
+            if (spawnEnergy || currentMisses >= 1 / energyDropChance)
+            {
+                currentMisses = 0;
+                onSpawnEnergy.Invoke(transform.position);
+            }
+        }
+
+        onAsteroidDestroyed.Invoke(transform.position);
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Sent when another object enters a trigger collider attached to this
+    /// object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Bullet bullet = other.gameObject.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            bullet.gameObject.SetActive(false);
+            DestroyAsteroid();
+        }
     }
 }

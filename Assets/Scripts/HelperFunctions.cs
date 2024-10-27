@@ -23,4 +23,9 @@ public static class HelperFunctions
     {
         return list[UnityEngine.Random.Range(0, list.Count)];
     }
+    public static Vector2 Random(this Vector4 vector)
+    {
+        return new Vector2(new Vector2(vector.x, vector.y).Random(),
+            new Vector2(vector.z, vector.w).Random());
+    }
 }

@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 5487313330011946306}
   - component: {fileID: 7712147846995266171}
   - component: {fileID: 6178435480263995671}
-  m_Layer: 0
+  - component: {fileID: 9205186367921509760}
+  - component: {fileID: 3815805287848420848}
+  m_Layer: 6
   m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da0bf5e57d630546b8317b121ea57eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAsteroidDestroyed: {fileID: 11400000, guid: d93550a173e83a243a5b124c1ad44266, type: 2}
+  onSpawnEnergy: {fileID: 11400000, guid: fe4e4abbb0a77a54ca836decdcad414d, type: 2}
   randomSpeed: {x: 0, y: 5}
   objectsToCreateOnDestroy: {x: 2, y: 4}
   body: {fileID: 6178435480263995671}
@@ -55,13 +59,14 @@ MonoBehaviour:
   - Tier: 0
     Size: 0
   - Tier: 1
-    Size: 0.25
-  - Tier: 2
     Size: 0.5
-  - Tier: 3
-    Size: 0.75
-  - Tier: 4
+  - Tier: 2
     Size: 1
+  - Tier: 3
+    Size: 1.5
+  currentTier: 3
+  energyDropChance: 0.3
+  DirectionQuaternion: {x: 0, y: 0, z: 0, w: 1}
   Pool: {fileID: 0}
 --- !u!114 &1705589085181053196
 MonoBehaviour:
@@ -75,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d4ecd1e94046a45ae6ac6b88644169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {x: -7.5, y: 7.5, z: -4.5, w: 4.5}
+  bounds: {x: -7.5, y: 7.5, z: -5.5, w: 5.5}
   body: {fileID: 6178435480263995671}
 --- !u!114 &5487313330011946306
 MonoBehaviour:
@@ -135,8 +140,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -84120583
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1020442909, guid: 365db3acbaa3c664c9b725a0f0ba9fbc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -175,4 +180,52 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!58 &9205186367921509760
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452034250392115055}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.44
+--- !u!114 &3815805287848420848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452034250392115055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae959beb8e734a8478137b24edd78d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: {x: -45, y: 45}

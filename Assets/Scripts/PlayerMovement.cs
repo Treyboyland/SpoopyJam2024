@@ -20,13 +20,15 @@ public class PlayerMovement : MonoBehaviour
         //Debug.LogWarning($"{movementVector.y}");
 
         player.ShouldThrust = movementVector.y > 0;
+        player.ThrustPercentage = Mathf.Abs(movementVector.y);
         player.Rotate(-movementVector.x);
     }
 
     public void HandleFire(InputAction.CallbackContext context)
     {
+
         bool shouldFire = context.ReadValueAsButton();
-        if (shouldFire)
+        if (shouldFire && context.started)
         {
             player.Fire();
         }

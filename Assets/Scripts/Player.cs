@@ -23,6 +23,11 @@ public class Player : MonoBehaviour
 
     public bool ShouldThrust;
 
+    public int Energy;
+    public float ThrustPercentage = 1;
+
+    public int Level;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +55,7 @@ public class Player : MonoBehaviour
 
     public void Thrust()
     {
-        body.AddForce((transform.rotation * frontVector) * thrustPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        body.AddForce((transform.rotation * frontVector) * ThrustPercentage * thrustPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
 
     public void Rotate(float val)
@@ -69,6 +74,20 @@ public class Player : MonoBehaviour
             newBullet.ForwardVector = transform.rotation * frontVector;
             newBullet.ShipSpeed = body.velocity;
             newBullet.gameObject.SetActive(true);
+        }
+    }
+
+    public void IncreaseLevel()
+    {
+        Level++;
+    }
+
+    public void DecreaseLevel()
+    {
+        Level--;
+        if (Level < 0)
+        {
+            Level = 0;
         }
     }
 }
