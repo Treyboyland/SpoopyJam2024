@@ -45,4 +45,12 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 
         return canGenerateMore ? CreateObject() : null;
     }
+
+    public void DisableAll()
+    {
+        foreach (var item in pool)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 }

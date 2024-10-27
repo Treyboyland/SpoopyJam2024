@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
         {
             newBullet.transform.position = transform.position;
             newBullet.ForwardVector = transform.rotation * frontVector;
+            newBullet.ShipSpeed = body.velocity;
             newBullet.gameObject.SetActive(true);
         }
     }

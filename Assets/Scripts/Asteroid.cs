@@ -33,6 +33,11 @@ public class Asteroid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Direction asteroid will go in
+    /// </summary>
+    public Quaternion DirectionQuaternion = Quaternion.identity;
+
     public AsteroidPool Pool;
 
     [Serializable]
@@ -65,7 +70,7 @@ public class Asteroid : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        body.velocity = randomSpeed.Random() * (Quaternion.Euler(0, 0, UnityEngine.Random.Range(0.0f, 360)) * Vector3.up);
+        body.velocity = randomSpeed.Random() * (DirectionQuaternion * Vector3.up);
     }
 
     void CreateAdditional(int count)

@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
 
     public Vector2 ForwardVector;
 
+    public Vector2 ShipSpeed;
+
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
@@ -31,6 +33,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function is called when the behaviour becomes disabled or inactive.
+    /// </summary>
+    void OnDisable()
+    {
+        ShipSpeed = Vector2.zero;
+    }
+
 
     /// <summary>
     /// This function is called when the object becomes enabled and active.
@@ -38,7 +48,7 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         elapsed = 0;
-        body.velocity = ForwardVector.normalized * speed;
+        body.velocity = ForwardVector.normalized * speed + ShipSpeed;
         if (gameObject.activeInHierarchy && TrailPool != null)
         {
             var trail = TrailPool.GetObject();
