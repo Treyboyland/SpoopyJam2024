@@ -28,4 +28,16 @@ public static class HelperFunctions
         return new Vector2(new Vector2(vector.x, vector.y).Random(),
             new Vector2(vector.z, vector.w).Random());
     }
+
+    /// <summary>
+    /// Restricts value to between the given values
+    /// </summary>
+    /// <param name="val"></param>
+    /// <param name="min"></param>
+    /// <param name="max"></param>
+    /// <returns></returns>
+    public static int Constrain(this int val, int min, int max)
+    {
+        return Mathf.Max(Mathf.Min(max, val), min);
+    }
 }

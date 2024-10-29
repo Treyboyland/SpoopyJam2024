@@ -64,6 +64,15 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public void SpawnObject()
+    {
+        var obj = GetObject();
+        if (obj != null)
+        {
+            obj.gameObject.SetActive(true);
+        }
+    }
+
     public bool AreAnyActive()
     {
         foreach (var item in pool)

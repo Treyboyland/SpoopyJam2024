@@ -68,7 +68,10 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (currentTier == 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void SetSize()
@@ -87,7 +90,7 @@ public class Asteroid : MonoBehaviour
 
     void CreateAdditional(int count)
     {
-        if (Pool == null)
+        if (Pool == null || CurrentTier - 1 == 0)
         {
             return;
         }
@@ -103,7 +106,7 @@ public class Asteroid : MonoBehaviour
 
     public void DestroyAsteroid()
     {
-        if (CurrentTier != 1)
+        if (CurrentTier > 1)
         {
             CreateAdditional(objectsToCreateOnDestroy.Random());
         }
@@ -135,6 +138,29 @@ public class Asteroid : MonoBehaviour
         {
             bullet.gameObject.SetActive(false);
             DestroyAsteroid();
+        }
+    }
+
+    /// <summary>
+    /// Sent when an incoming collider makes contact with this object's
+    /// collider (2D physics only).
+    /// </summary>
+    /// <param name="other">The Collision2D data associated with this collision.</param>
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        var player = other.gameObject.GetComponent<Player>();
+        if (player != null)
+        {
+            player.DestroyShip();
+            return;
+        }
+
+        var enemy = other.gameObject.GetComponent<Enemy>();
+
+        if (enemy != null)
+        {
+            enemy.DestroyEnemy();
+            return;
         }
     }
 }

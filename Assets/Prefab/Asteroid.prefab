@@ -52,8 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onAsteroidDestroyed: {fileID: 11400000, guid: d93550a173e83a243a5b124c1ad44266, type: 2}
   onSpawnEnergy: {fileID: 11400000, guid: fe4e4abbb0a77a54ca836decdcad414d, type: 2}
-  randomSpeed: {x: 0, y: 5}
-  objectsToCreateOnDestroy: {x: 2, y: 4}
+  randomSpeed: {x: 0.5, y: 5}
+  objectsToCreateOnDestroy: {x: 1, y: 3}
   body: {fileID: 6178435480263995671}
   tierAndSizes:
   - Tier: 0

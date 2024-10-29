@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c18126d58210cc4bbd673691d3738d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 8
   lifeTime: 1.5
   body: {fileID: 8259572144603510562}
   TrailPool: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d4ecd1e94046a45ae6ac6b88644169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {x: -7.5, y: 7.5, z: -4.5, w: 4.5}
+  bounds: {x: -7.5, y: 7.5, z: -5.5, w: 5.5}
   body: {fileID: 8259572144603510562}
 --- !u!212 &466817373479627656
 SpriteRenderer:

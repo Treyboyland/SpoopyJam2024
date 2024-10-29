@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class LevelText : MonoBehaviour
 {
+
+    [SerializeField]
+    Animator animator;
+
     [SerializeField]
     TMP_Text text;
 
@@ -17,18 +21,13 @@ public class LevelText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        UpdateText();
     }
 
     public void UpdateText()
     {
-        int level = Mathf.Max(Mathf.Min(player.Level, levelTexts.Count - 1), 0);
+        int level = player.Level.Constrain(0, levelTexts.Count - 1);
         text.text = "Time: " + levelTexts[level];
+        animator.SetTrigger("Animate");
     }
 }

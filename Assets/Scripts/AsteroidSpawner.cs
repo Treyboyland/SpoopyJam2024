@@ -6,6 +6,9 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField]
+    Player player;
+
+    [SerializeField]
     AsteroidPool asteroidPool;
 
     [SerializeField]
@@ -13,6 +16,9 @@ public class AsteroidSpawner : MonoBehaviour
 
     [SerializeField]
     EnemyPool enemyPool;
+
+    [SerializeField]
+    int enemiesPerAsteroid;
 
     [SerializeField]
     bool shouldSpawn;
@@ -23,6 +29,10 @@ public class AsteroidSpawner : MonoBehaviour
     [Tooltip("X bounds, then Y Bounds")]
     [SerializeField]
     Vector4 startingPoints;
+
+    [Tooltip("X bounds, then Y Bounds")]
+    [SerializeField]
+    Vector4 endingPoints;
 
     [SerializeField]
     List<LevelToSpawnData> possibleData;
@@ -66,54 +76,68 @@ public class AsteroidSpawner : MonoBehaviour
                 elapsed = 0;
                 SpawnItem();
             }
+            if (!asteroidPool.AreAnyActive() && !enemyPool.AreAnyActive())
+            {
+                for (int i = 0; i < currentData.InitialSpawn; i++)
+                {
+                    SpawnItem();
+                }
+            }
         }
     }
 
-    void SpawnItem()
+    Vector3 GetRandomSpawnPosition()
     {
         Vector2Int randomStart = new Vector2Int(0, 3);
 
         SpawnDirection spawnStart = (SpawnDirection)randomStart.Random();
 
         Vector2 spawnLocation;
-        float startingAngle;
 
         //Left Up Right Down
         switch (spawnStart)
         {
             case SpawnDirection.LEFT:
                 spawnLocation = new Vector2(startingPoints.x, new Vector2(startingPoints.z, startingPoints.w).Random());
-                startingAngle = 90;
                 break;
             case SpawnDirection.UP:
                 spawnLocation = new Vector2(new Vector2(startingPoints.x, startingPoints.y).Random(), startingPoints.w);
-                startingAngle = 180;
                 break;
             case SpawnDirection.RIGHT:
                 spawnLocation = new Vector2(startingPoints.y, new Vector2(startingPoints.z, startingPoints.w).Random());
-                startingAngle = -90;
                 break;
             case SpawnDirection.DOWN:
             default:
                 spawnLocation = new Vector2(new Vector2(startingPoints.x, startingPoints.y).Random(), startingPoints.z);
-                startingAngle = 0;
                 break;
         }
 
+        return spawnLocation;
+    }
+
+    void SpawnItem()
+    {
         bool spawnEnemy = UnityEngine.Random.Range(0.0f, 1.0f) < currentData.EnemyProbability;
 
         if (spawnEnemy)
         {
-            var enemy = enemyPool.GetObject();
-            enemy.transform.position = spawnLocation;
-            enemy.gameObject.SetActive(true);
+            for (int i = 0; i < enemiesPerAsteroid; i++)
+            {
+                Vector2 spawnLocation = GetRandomSpawnPosition();
+                var enemy = enemyPool.GetObject();
+                enemy.transform.position = spawnLocation;
+                enemy.gameObject.SetActive(true);
+            }
         }
         else
         {
+            Vector2 spawnLocation = GetRandomSpawnPosition();
             var asteroid = asteroidPool.GetObject();
+            Vector2 target = endingPoints.Random();
+            float angle = Vector2.Angle(spawnLocation, target);
             asteroid.transform.position = spawnLocation;
             asteroid.CurrentTier = initialAsteroidTier;
-            asteroid.DirectionQuaternion = Quaternion.Euler(0, 0, startingAngle + spawnAngle.Random());
+            asteroid.DirectionQuaternion = Quaternion.Euler(0, 0, angle);
             asteroid.gameObject.SetActive(true);
         }
 
@@ -133,5 +157,10 @@ public class AsteroidSpawner : MonoBehaviour
         {
             SpawnItem();
         }
+    }
+
+    public void UpdateLevel()
+    {
+        currentData = possibleData[player.Level.Constrain(0, possibleData.Count - 1)];
     }
 }

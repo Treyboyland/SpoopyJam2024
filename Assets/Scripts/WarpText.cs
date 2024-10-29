@@ -36,6 +36,7 @@ public class WarpText : MonoBehaviour
                 elapsed = 0;
                 showStuff = false;
                 text.text = "";
+                onIncreaseLevel.Invoke();
             }
         }
         else
@@ -47,5 +48,10 @@ public class WarpText : MonoBehaviour
     public void StartShowing()
     {
         showStuff = true;
+    }
+
+    public void StopShowing()
+    {
+        showStuff = false;
     }
 }

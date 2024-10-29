@@ -24,7 +24,7 @@ public class EnergyLevelUI : MonoBehaviour
 
     public void UpdateText()
     {
-        int level = Mathf.Max(Mathf.Min(player.Level, requiredEnergyPerLevel.Count - 1), 0);
+        int level = player.Level.Constrain(0, requiredEnergyPerLevel.Count - 1);
 
         int requiredEnergy = requiredEnergyPerLevel[level];
 

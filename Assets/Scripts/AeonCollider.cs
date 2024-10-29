@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AeonCollider : MonoBehaviour
 {
+    [SerializeField]
+    GameEventSO decreaseLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,7 @@ public class AeonCollider : MonoBehaviour
         var player = other.GetComponent<Player>();
         if (player != null)
         {
+            decreaseLevel.Invoke();
             return;
         }
 
@@ -46,6 +50,13 @@ public class AeonCollider : MonoBehaviour
         {
             other.SetActive(false);
             return;
+        }
+
+        var enemy = other.GetComponent<Enemy>();
+
+        if (enemy != null)
+        {
+            enemy.DestroyEnemy();
         }
     }
 

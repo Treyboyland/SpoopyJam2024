@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6774533046121912363}
   - component: {fileID: 7851584360091432868}
   - component: {fileID: 166143443872591478}
+  - component: {fileID: 2174022357170461617}
   m_Layer: 0
   m_Name: AEON
   m_TagString: Untagged
@@ -129,6 +130,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e723525a3bf395a408affd3721da2bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decreaseLevel: {fileID: 11400000, guid: 4df3d2bf8df0d2e45b46f1acc7eeb1b4, type: 2}
+--- !u!114 &2174022357170461617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966763063863916280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8ccb912a91dd740bae8231048c037b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToFire:
+  - {fileID: 11400000, guid: d36ad14e24b338b4ea644c85d2e54383, type: 2}
 --- !u!1 &2391083466436341338
 GameObject:
   m_ObjectHideFlags: 0

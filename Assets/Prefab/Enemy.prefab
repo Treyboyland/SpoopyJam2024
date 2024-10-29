@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 295162516434856926}
   - component: {fileID: 3344894237589948635}
   - component: {fileID: 833320327715755035}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,6 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8165157bd4917344bbe6a7481578bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onEnemyDestroyed: {fileID: 11400000, guid: 11f213b865d57874d919ef629228a9b8, type: 2}
+  onSpawnEnergy: {fileID: 11400000, guid: fe4e4abbb0a77a54ca836decdcad414d, type: 2}
+  energyDropChance: 0.1
 --- !u!1 &3503282629853619237
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +241,7 @@ GameObject:
   - component: {fileID: 1388419452187269789}
   - component: {fileID: 8594369453595418170}
   - component: {fileID: 1744712063636463177}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ship Thrust Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
