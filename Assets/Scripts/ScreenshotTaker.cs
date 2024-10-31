@@ -17,6 +17,6 @@ public class ScreenshotTaker : MonoBehaviour
         string fileName = "Screenshot-" + time.ToString("yyyy-MM-dd_HH-mm-ss-fff") + ".png";
         Debug.LogWarning(fileName);
 
-        ScreenCapture.CaptureScreenshot(Application.dataPath + $"../Logs/{fileName}");
+        ScreenCapture.CaptureScreenshot(Application.dataPath + $"/../Logs/{fileName}");
     }
 }
